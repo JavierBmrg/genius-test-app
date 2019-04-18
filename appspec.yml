@@ -1,0 +1,25 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /home/ubuntu/genius-test-app/
+
+permissions:
+  - object: /home/ubuntu/genius-test-app/
+    mode: 755
+    owner: root
+    group: root
+hooks:
+  ApplicationStop:
+    - location: code-deploy/mantain.sh
+      timeout: 1500
+      runas: root
+  AfterInstall:
+    - location: code-deploy/after-install.sh
+      timeout: 1500
+      runas: root
+  ApplicationStart:
+    - location: code-deploy/app-install.sh
+      timeout: 1500
+runas: root
